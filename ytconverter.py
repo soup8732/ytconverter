@@ -18,6 +18,7 @@ except ImportError:
     os.system("pip install yt_dlp")
     os.system("pip install colored")
     os.system("pkg install curl")
+    os.system("pkg install libqrencode")
     print('\nRun the code again')
     exit()
 
