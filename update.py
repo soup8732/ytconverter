@@ -1,13 +1,32 @@
-#I DON'T KNOW SHELL COMMANDS SO I AM USING #PYTHON TO CONNECT WITH SHELL, JUST RUN THE #BELOW COMMAND TO UPDATE 'YT Converter' TOOL. #AFTER UPDATING IF ANY ERROR OCCURS TAKE A #SCREENSHOT AND EMAIL ME WITH ATTACHING THE #SCREENSHOT.
-
-#COMMAND :
-# $ 'python update.py'
-
 import os
+import shutil
+
+# Change to the home directory of Termux
 os.chdir('/data/data/com.termux/files/home')
-os.system('mv ytconverter bytconverter')
-os.system('git clone https://github.com/kaifcodec/ytconverter.git')
-os.system('rm -r -f $HOME/bytconverter ')
-os.system('pip install pytube --upgrade')
-print("\n RESTART YOUR TERMUX APPLICATION AND 'YT Converter' tool.")
-print("\n IF STILL ANY ERROR OCCURRS THEN OPEN A ISSUE IN GITHUB")
+
+# Rename the existing ytconverter directory to a backup name
+if os.path.exists('ytconverter'):
+    os.rename('ytconverter', 'bytconverter')
+
+# Clone the latest version of the ytconverter repository
+try:
+    os.system('git clone https://github.com/kaifcodec/ytconverter.git')
+except Exception as e:
+    print(f"Error cloning repository: {e}")
+    exit()
+
+# Remove the backup directory
+if os.path.exists('bytconverter'):
+    shutil.rmtree('bytconverter', ignore_errors=True)
+
+# Ensure yt_dlp is installed and updated
+try:
+    os.system('pip uninstall -y yt_dlp')
+    os.system('pip install yt_dlp --upgrade')
+except Exception as e:
+    print(f"Error updating yt_dlp: {e}")
+    exit()
+
+print("\nRESTART YOUR TERMUX APPLICATION AND 'YT Converter' tool.")
+print("\nIF STILL ANY ERROR OCCURS, OPEN AN ISSUE ON GITHUB. OR EMAIL:kaif.repo.official@gmail.com")
+
