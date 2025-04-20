@@ -60,3 +60,4 @@ For any questions or feedback, please open an issue or contact [kaifcodec](https
 ![Screenshot_20230216-082615](https://user-images.githubusercontent.com/98528577/219256583-944c3679-1221-4941-b486-51216b979dae.png)
 
 ![Screenshot_20230216-082638](https://user-images.githubusercontent.com/98528577/219256609-a9e7b63a-7c4e-4f73-b482-6dbf565d0569.png)
+![Screenshot_20250420-110350](https://github.com/user-attachments/assets/8e9d00ce-b698-4b1f-8870-badd5d274442)
