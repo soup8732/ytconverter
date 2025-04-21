@@ -6,30 +6,6 @@
 ![Screenshot 2](https://github.com/user-attachments/assets/8e9d00ce-b698-4b1f-8870-badd5d274442)
 
 ---
-<p align="center">
-  <img src="https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif" width="400" height=350 />
-  <img src="https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif" width="400" />
-</p>
----
-
-## Dynamic Stats  
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=kaifcodec&show_icons=true&theme=radical)  
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=kaifcodec&layout=compact&theme=radical)  
-
----
-
-## Contact for any error or issue:
-- kaif.repo.official@gmail.com
-
-## Features
-- **Video Downloading**: Fetch videos directly from YouTube.
-- **Format Conversion**: Convert downloaded videos into different formats such as MP3, MP4, etc.
-- **Metadata Handling**: Extract and manage metadata associated with YouTube videos.
-
----
-
-![Code GIF](https://media.giphy.com/media/L1R1tvI9svkIWwpVYr/giphy.gif)
----
 
 ## Requirements
 - Python 3.x
@@ -67,6 +43,35 @@
    python ytconverter.py
    ```
 2. Follow the on-screen instructions to input the YouTube URL and choose the desired output format.
+
+---
+<p align="center">
+  <img src="https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif" width="400" height=350 />
+  <img src="https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif" width="400" />
+</p>
+
+---
+
+## Dynamic Stats  
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=kaifcodec&show_icons=true&theme=radical)  
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=kaifcodec&layout=compact&theme=radical)  
+
+---
+
+## Contact for any error or issue:
+- kaifcodec@gmail.com
+
+## Features
+- **Video Downloading**: Fetch videos directly from YouTube.
+- **Format Conversion**: Convert downloaded videos into different formats such as MP3, MP4, etc.
+- **Metadata Handling**: Extract and manage metadata associated with YouTube videos.
+
+---
+
+![Code GIF](https://media.giphy.com/media/L1R1tvI9svkIWwpVYr/giphy.gif)
+---
+
+
 
 ## Contributing
 Contributions are welcome! Please follow these steps:
