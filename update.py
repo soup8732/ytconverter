@@ -1,32 +1,40 @@
 import os
 import shutil
+import subprocess
 
-# Change to the home directory of Termux
-os.chdir('/data/data/com.termux/files/home')
+# Define paths
+home_dir = '/data/data/com.termux/files/home'
+project_dir = os.path.join(home_dir, 'ytconverter')
+backup_dir = os.path.join(home_dir, 'bytconverter')
 
-# Rename the existing ytconverter directory to a backup name
-if os.path.exists('ytconverter'):
-    os.rename('ytconverter', 'bytconverter')
+os.chdir(home_dir)
 
-# Clone the latest version of the ytconverter repository
+# Backup existing folder
+if os.path.exists(project_dir):
+    os.rename(project_dir, backup_dir)
+
+# Clone the latest version
 try:
-    os.system('git clone https://github.com/kaifcodec/ytconverter.git')
-except Exception as e:
+    subprocess.run(['git', 'clone', 'https://github.com/kaifcodec/ytconverter.git'], check=True)
+except subprocess.CalledProcessError as e:
     print(f"Error cloning repository: {e}")
+    # Rollback to backup
+    if os.path.exists(backup_dir):
+        os.rename(backup_dir, project_dir)
+        print("Restored previous version from backup.")
     exit()
 
-# Remove the backup directory
-if os.path.exists('bytconverter'):
-    shutil.rmtree('bytconverter', ignore_errors=True)
+# Remove backup after successful clone
+if os.path.exists(backup_dir):
+    shutil.rmtree(backup_dir, ignore_errors=True)
 
-# Ensure yt_dlp is installed and updated
+# Update yt_dlp
 try:
-    os.system('pip uninstall -y yt_dlp')
-    os.system('pip install yt_dlp --upgrade')
-except Exception as e:
+    subprocess.run(['pip', 'uninstall', '-y', 'yt_dlp'], check=True)
+    subprocess.run(['pip', 'install', 'yt_dlp', '--upgrade'], check=True)
+except subprocess.CalledProcessError as e:
     print(f"Error updating yt_dlp: {e}")
     exit()
 
-print("\nRESTART YOUR TERMUX APPLICATION AND 'YT Converter' tool.")
-print("\nIF STILL ANY ERROR OCCURS, OPEN AN ISSUE ON GITHUB. OR EMAIL:kaif.repo.official@gmail.com")
-
+print("\nUpdate complete. RESTART TERMUX and run 'ytconverter' again.")
+print("If you face issues, report on GitHub or email: kaif.repo.official@gmail.com")

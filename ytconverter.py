@@ -7,10 +7,10 @@ import json
 import shutil
 try:
     from colored import fg, attr
-    f_colored = fg(117)  # Use a distinct alias for colored foreground
+    f_colored = fg(117)
     r = fg(1)
     b = attr(0)
-    import fontstyle as fs  # Use 'fs' as alias for fontstyle
+    import fontstyle as fs
     import requests
     import yt_dlp
     from yt_dlp import YoutubeDL
@@ -22,13 +22,69 @@ except ImportError:
     os.system("pip install colored")
     os.system("pip install requests")
     print('\nInstalling required system packages...\n')
-    os.system("pkg install -y ffmpeg yt-dlp") # Install both ffmpeg and yt-dlp using pkg
+    os.system("pkg install -y ffmpeg yt-dlp")
     print('\nRun the code again')
     exit()
 
+try:
+    if os.path.exists('/data/data/com.termux/files/usr/'):
+        try:
+            des_dir = "/storage/emulated/0/"
+            if os.path.isdir(des_dir):
+                if os.access(des_dir, os.W_OK):
+                    pass  # Directory exists and is writable
+                else:
+                    print('\nYour storage is inaccessible, press y next...')
+                    time.sleep(1)
+                    os.system("termux-setup-storage")
+            else:
+                print('\n' + fs.apply("Allow the storage permission to download", "/green/bold"))
+                time.sleep(1)
+                os.system("termux-setup-storage")
+        except Exception as e:
+            print(f"Error: {e}")
+    else:
+        device = "nontermux"
+except Exception as e:
+    print(f"Outer error: {e}")
+
+
+try:
+    # Fetch version from GitHub
+    response = requests.get("https://raw.githubusercontent.com/kaifcodec/ytconverter/main/version.json")
+    version_git = response.json().get('version')
+
+    # Load local version
+    with open("version.json", "r") as file:
+        version_json = json.load(file)
+    current_version = version_json.get("version")
+
+    # Compare versions
+    if current_version != version_git:
+        print('\n' + fs.apply("A new version for the tool is available!", "/cyan/bold"))
+        print(f"Your current version is v{current_version}, latest version is v{version_git}!\n")
+
+        ver_choice = input(fs.apply("Do you want to update to the new version automatically? (y/n): ", "/cyan/bold")).lower()
+
+        if ver_choice == "y":
+            print('\n' + fs.apply("Running 'python update.py' — ytconverter will be updated soon.", "/cyan/bold"))
+            os.system("python update.py")
+            exit()
+        elif ver_choice == "n":
+            print('\n' + fs.apply("Run 'python update.py' in the ytconverter directory to update it later.", "/cyan"))
+        else:
+            print('\n' + fs.apply("Invalid input. Proceeding to auto-update...", "/yellow"))
+            os.system("python update.py")
+            exit()
+    else:
+        print(fs.apply("You are using the latest version.", "/green"))
+
+except Exception as e:
+    print('\n' + fs.apply("Version check failed — maybe a new version is available.\nRun 'python update.py' to check.", "/red/bold"))
+    pass
+
 tname = fs.apply('WHAT IS YOUR NAME?', '/yellow/bold')
-warning = fs.apply(
-    "(DON'T TRY TO ENTER WRONG DATA,YOU WILL NOT BE ABLE TO CHANGE IT AGAIN)", '/red/bold')
+warning = fs.apply("(DON'T TRY TO ENTER WRONG DATA,YOU WILL NOT BE ABLE TO CHANGE IT AGAIN)", '/red/bold')
 tnum = fs.apply('ENTER YOU PHONE NUMBER OR EMAIL TO STAY UPDATED ABOUT NEW RELEASES', '/cyan/bold')
 f1 = '''                   ▄▀▄     ▄▀▄
                   ▄█░░▀▀▀▀▀░░█▄
