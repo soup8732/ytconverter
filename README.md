@@ -90,6 +90,14 @@ Contributions are welcome! Please follow these steps:
 5. Push to the branch (`git push origin feature-branch`).
 6. Open a Pull Request.
 
+## Disclaimer ⚠⚠
+ - **We do ask you for your Name and Contact information in the beginning of the tool for update related notices but if you don't want to disclose those creds you can leave those fields blank**
+ - **We also collect some basic informations about the usage statistics and user Public IP but we assure you that these datas are not kept more than 48 hours**
+ - **We respect your privacy. Any basic info this tool collects (like usage data) is handled securely and never shared. No creepy tracking—just good software.**
+ - _Thank you 🌹🌹_ _Keep supporting ❤❤_
+
+---
+
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
