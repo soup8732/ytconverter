@@ -1,9 +1,9 @@
 
-# ytconverter
+## YTConverter™
 ---
-`ytconverter` is a Python-based project developed by [kaifcodec](https://github.com/kaifcodec) designed to provide a robust tool for converting YouTube videos into various formats. This tool simplifies the process of downloading and converting videos from YouTube.
----
+`YTConverter™` is a Python-based project developed by [kaifcodec](https://github.com/kaifcodec) designed to provide a robust tool for converting YouTube videos into various formats. This tool simplifies the process of downloading and converting videos from YouTube.
 
+---
 ![IMG-20250423-WA0001](https://github.com/user-attachments/assets/ef43f4b4-0afa-4682-8c4d-7d19200a40f7)
 
 <p align="centre">
