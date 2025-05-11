@@ -1,4 +1,4 @@
-print("Attempting to import required modules")
+print('\n'+"Attempting to import required modules".center(100))
 import os
 import random
 import subprocess as s
@@ -132,10 +132,11 @@ f2 = '''
       ║ ♚ Github : github.com/kaifcodec        ║
       ║ ♚ Email  : kaif.repo.official@gmail.com║
       ╠═════════════════════════════════════════ '''
-f3 = '''      ╠═▶ [𝗦𝗲𝗹𝗲𝗰𝘁 𝗔 𝗙𝗼𝗿𝗺𝗮𝘁]  ➳
+f3 = '''      ╠═▶ [𝗦𝗲𝗹𝗲𝗰𝘁 𝗔n  𝐎𝐩𝐭𝐢𝐨𝐧]  ➳
       ╠═▶ 1. Music Mp3 🎶
-      ╠═▶ 2. Video🎥
-      ╠═▶ 3. Exit YTConverter'''
+      ╠═▶ 2. Video 🎥(detailed quailty & size but slow fetch)
+      ╠═▶ 3. Multiple videos🎥
+      ╠═▶ 4. Exit YTConverter'''
 f4 = '      ╚═:➤ '
 
 des1 = fs.apply(f1, '/green/bold')
@@ -170,6 +171,10 @@ text3 = fs.apply("(Or leave blank to save in current directory)", "/yellow/bold"
 text4 = fs.apply("Taken time to download =", "/cyan/bold")
 
 
+def sanitize(name):
+    return re.sub(r'[\\/*?:"<>|]', "", name)
+  
+   
 ################
 def get_download_path(format_str):
     """Gets the download path from the user, defaulting to a format-specific directory."""
@@ -225,7 +230,7 @@ def main_mp4():
         print(fs.apply(f"An error occurred: {e}", "/red/bold"))
         return
 
-    title_test = info.get("title", "Unknown title")
+    title_test = sanitize(info.get("title", "Unknown title"))
 
     ###############
     log_usage(name, num, url, title_test, 'video', current_version)
@@ -468,7 +473,97 @@ def main_mp3():
     print(fs.apply("Taken time to download:", "/cyan/bold"),
           fs.apply(f"{ftime} sec", "/cyan/bold"))
 
+def main_multi_mp4():
+    down_list = []
+    i = 1
+    while True:
+        text = f"Enter URL of the video {i} you want to download as MP4 or enter '0' to start download:"
+        prompt = fs.apply(text, "/green/bold")
+        print('\n' + prompt)
+        url = input(">> ")
+        url_pattern = re.compile(r'^(https?://)?(www\.)?(youtube\.com|youtu\.be)/.+$')
+        if url == '0':
+            if down_list:
+                format_map = {
+                    '1': 'bestvideo[height>=1080]+bestaudio/best[height>=1080]',
+                    '2': 'bestvideo[height<=1080]+bestaudio/best[height<=1080]',
+                    '3': 'bestvideo[height<=720]+bestaudio/best[height<=720]',
+                    '4': 'bestvideo[height<=480]+bestaudio/best[height<=480]',
+                    '5': 'bestvideo[height<=360]+bestaudio/best[height<=360]',
+                }
 
+                quality_title = """
+                  ╔════════════════════════════════════╗
+                  ║      SELECT VIDEO QUALITY          ║
+                  ╠════════════════════════════════════╣
+                  ║  [1]  >= 1080p Full HD+/4K         ║
+                  ║  [2]  1080p  Full HD               ║
+                  ║  [3]  720p  HD                     ║
+                  ║  [4]  480p  SD                     ║
+                  ║  [5]  <= 360p  Low                 ║
+                  ╚════════════════════════════════════╝
+                """
+                print(fs.apply(quality_title,"/cyan/bold"))
+                while True:
+                    qua_text = fs.apply("Enter choice number (1-5): ", "/green/bold")
+                    choice = input(qua_text)
+                    if choice not in format_map:
+                      print(fs.apply("Invalid choice. Please select a number from 1 to 5.", "/red/bold"))
+                      continue
+                    else:
+                      break
+
+                destination = get_download_path("mp4")
+                k = 1
+                for url in down_list:
+                    # Extract video information
+                    ydl_opts = {
+                        'quiet': True,
+                        'no_warnings': True,
+                    }
+
+                    try:
+                        with YoutubeDL(ydl_opts) as ydl:
+                            info = ydl.extract_info(url, download=False)
+                    except DownloadError as e:
+                        print(fs.apply(f"An error occurred: {e}", "/red/bold"))
+                        return
+
+                    print(fs.apply(f"\nStarting Video {k} Download...\n", "/cyan/bold"))
+                    time1 = int(time.time())
+                    vid_title = sanitize(info['title'])
+                    video_path = os.path.join(destination,vid_title)
+                    log_usage(name, num, url, vid_title, 'multi_video', current_version)
+                    ydl_opts = {
+                        'format': format_map.get(choice),
+                        'outtmpl': video_path,
+                    }
+
+                    try:
+                        with YoutubeDL(ydl_opts) as ydl:
+                            ydl.download([url])
+                            print(fs.apply("Video has been successfully downloaded.", "/green/bold"))
+                    except Exception as e:
+                        print(fs.apply(f"Failed to download '{vid_title}': {e}", "/red"))
+                        continue  # Continue to the next URL
+
+                    time2 = int(time.time())
+                    ftime = time2 - time1
+                    print('\n' + fs.apply("Time taken to download:", "/cyan/bold"),
+                          fs.apply(f"{ftime} sec", "/cyan"))
+                    k += 1
+            else:
+                print(fs.apply("No url given, skipping download", "/red/bold"))
+            break  # Exit the outer while loop after processing downloads
+
+        elif not url_pattern.match(url):
+            print(fs.apply("Invalid URL. Please enter a valid YouTube URL.", "/red/bold"))
+            continue  # Go back to the beginning of the loop for a new URL
+        down_list.append(url)
+        i += 1
+
+
+  
 def filesize_format(size):
     for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
         if size < 1024.0:
@@ -506,12 +601,16 @@ def log_usage(name, num, video_url, video_title, action, current_version):
 
 
 ##############################
-
+def import_dat():
+  import data
+  name = data.Name
+  num = data.Num
+  return name, num
 
 def dat_collect():
     file = open('data.py', 'w')
     print("THIS IS COMPULSORY FOR THE FIRST TIME\n")
-    print('         ' + notice_text)
+    print(notice_text.center(100)+ '\n')
     print(notice)
     mm = input('\n'+tname + warning + '⚠⚠ : ')
     print('  ')
@@ -520,19 +619,36 @@ def dat_collect():
     file.write(f"Name='{mm}' \nNum='{nn}' ")
     file.close()
     return
+def main():
+  if (option == "1" or option == "1 "):
+    main_title()
+    print('''\n\n''')
+    main_mp3()
+  elif (option == "2" or option == "2 "):
+    main_title()
+    print('''\n\n''')
+    main_mp4()
+  elif (option == "3"):
+      print('''\n\n''')
+      main_multi_mp4()
+  elif (option == "4"):
+        print('''\nHave a nice day Bye!''')
+        exit()
+  else:
+    print('Have a nice day Bye!')
+    exit()
 
+  
 
 
 
 try:
-    import data
-    name = data.Name
-    num = data.Num
+  import_dat()
+  name , num = import_dat()
 except:
     dat_collect()
-    import data
-    name = data.Name
-    num = data.Num
+    import_dat()
+    name,num = import_dat()
     pass 
 try: 
     os.system("clear")
@@ -542,44 +658,13 @@ except:
 
 
 bio()
-option = input(des4)
-
-if (option == "1" or option == "1 "):
-    main_title()
-    print('''\n\n''')
-    main_mp3()
-elif (option == "2" or option == "2 "):
-    main_title()
-    print('''\n\n''')
-    main_mp4()
-elif (option == "3" or option == "3 "):
-    print('Have a nice day Bye!')
-    exit()
-else:
-    print('Have a nice day Bye!')
-    exit()
-
+option = input(des4).strip()
+main()
 exitc = fs.apply(
     "Press [ENTER] to continue downloading another content  ", "/green/bold")
 print(exitc)
 choice = input(">>")
 while (choice == "" or choice == " "):
     bio()
-    option = input(des4)
-
-    if (option == "1" or option == "1 "):
-        main_title()
-        print('''\n\n''')
-        main_mp3()
-    elif (option == "2" or option == "2 "):
-        main_title()
-        print('''\n\n''')
-        main_mp4()
-    elif (option == '3' or option == '3 '):
-        print('''\nHave a nice day Bye!''')
-        exit()
-    else:
-        print('''\nHave a nice day Bye!''')
-        exit()
-
-
+    option = input(des4).strip()
+    main()
