@@ -1,13 +1,19 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Simple ANSI color codes
+# Emojis
+CHECK="✅"
+CROSS="❌"
+INFO="ℹ️"
+STAR="✨"
+
+# ANSI colors
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 CYAN='\033[0;36m'
 RESET='\033[0m'
 
-# Check if terminal supports color
+# Color support check
 supports_color() {
     if [ -t 1 ] && [ -n "$TERM" ] && [ "$TERM" != "dumb" ]; then
         return 0
@@ -16,6 +22,7 @@ supports_color() {
     fi
 }
 
+# Detect OS type
 detect_os() {
     if [ -f /data/data/com.termux/files/usr/bin/pkg ]; then
         echo "termux"
@@ -32,57 +39,85 @@ detect_os() {
     fi
 }
 
+# Check sudo availability
+detect_sudo() {
+    if command -v sudo >/dev/null 2>&1; then
+        echo "sudo"
+    else
+        echo ""
+    fi
+}
+
+# Install system packages
 install_system_packages() {
-    case "$1" in
+    local os=$1
+    local sudo_cmd=$2
+
+    echo -e "${INFO} ${CYAN}Detected OS: $os${RESET}"
+
+    case "$os" in
         termux)
-            echo -e "${CYAN}Detected: Termux${RESET}"
-            pkg update -y
-            pkg install -y python ffmpeg yt-dlp
+            pkg update -y && pkg install -y python ffmpeg yt-dlp || {
+                echo -e "${CROSS} ${RED}Failed to install system packages on Termux.${RESET}"
+                exit 1
+            }
             ;;
         debian|kali)
-            echo -e "${CYAN}Detected: $1 (Debian-based)${RESET}"
-            sudo apt update
-            sudo apt install -y python3 python3-pip ffmpeg yt-dlp
+            $sudo_cmd apt update && $sudo_cmd apt install -y python3 python3-pip ffmpeg yt-dlp || {
+                echo -e "${CROSS} ${RED}Failed to install system packages on Debian-based system.${RESET}"
+                exit 1
+            }
             ;;
         arch)
-            echo -e "${CYAN}Detected: Arch-based system${RESET}"
-            sudo pacman -Sy --noconfirm python python-pip ffmpeg yt-dlp
+            $sudo_cmd pacman -Sy --noconfirm python python-pip ffmpeg yt-dlp || {
+                echo -e "${CROSS} ${RED}Failed to install system packages on Arch-based system.${RESET}"
+                exit 1
+            }
             ;;
         *)
-            echo -e "${YELLOW}Unknown or unsupported OS. Trying universal install...${RESET}"
-            # Attempt basic package installs
-            command -v python3 >/dev/null || {
-                echo -e "${YELLOW}Trying to install Python...${RESET}"
-                curl -s https://www.python.org/ftp/python/3.10.0/Python-3.10.0.tgz | tar xz || echo -e "${RED}Python install failed.${RESET}"
-            }
-
+            echo -e "${YELLOW}${INFO} Unsupported OS. Attempting minimal setup...${RESET}"
+            command -v python3 >/dev/null || echo -e "${CROSS} ${YELLOW}Install Python 3 manually."
             command -v pip3 >/dev/null || {
-                echo -e "${YELLOW}Trying to install pip...${RESET}"
-                curl -s https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python3 get-pip.py || echo -e "${RED}pip install failed.${RESET}"
+                echo -e "${INFO} ${YELLOW}Trying to install pip...${RESET}"
+                curl -s https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+                python3 get-pip.py || echo -e "${CROSS} ${RED}Pip install failed.${RESET}"
             }
-
-            command -v ffmpeg >/dev/null || echo -e "${YELLOW}ffmpeg not found. Please install it manually.${RESET}"
-            command -v yt-dlp >/dev/null || echo -e "${YELLOW}yt-dlp not found. You can try: pip install yt-dlp${RESET}"
-
-            echo -e "\n${YELLOW}If any step above failed, please install these manually:${RESET}"
-            echo -e "${CYAN}Python 3, pip, ffmpeg, yt-dlp${RESET}"
+            command -v ffmpeg >/dev/null || echo -e "${YELLOW}${INFO} Install ffmpeg manually.${RESET}"
+            command -v yt-dlp >/dev/null || echo -e "${YELLOW}${INFO} Try: pip3 install yt-dlp${RESET}"
             ;;
     esac
 }
 
+# Install Python packages
 install_python_packages() {
-    echo -e "\n${CYAN}Installing Python packages with pip...${RESET}"
-    pip install --upgrade pip
-    pip install fontstyle yt_dlp colored requests
+    echo -e "\n${INFO} ${CYAN}Installing Python packages...${RESET}"
+
+    PIP_CMD="pip3"
+    command -v pip3 >/dev/null || PIP_CMD="pip"
+
+    $PIP_CMD install --upgrade pip || {
+        echo -e "${CROSS} ${RED}Failed to upgrade pip.${RESET}"
+        exit 1
+    }
+
+    $PIP_CMD install --upgrade yt_dlp fontstyle colored requests || {
+        echo -e "${CROSS} ${RED}Python package installation failed.${RESET}"
+        exit 1
+    }
 }
 
 main() {
     supports_color
-    echo -e "${GREEN}Starting YTConverter™ installer...${RESET}"
+    echo -e "${STAR} ${GREEN}Starting YTConverter™ universal installer...${RESET}"
+
     os_type=$(detect_os)
-    install_system_packages "$os_type"
+    sudo_cmd=$(detect_sudo)
+
+    install_system_packages "$os_type" "$sudo_cmd"
     install_python_packages
-    echo -e "\n${GREEN}All dependencies installed. You can now run YTConverter™!${RESET}"
+
+    echo -e "\n${CHECK} ${GREEN}Installation complete! You can now run YTConverter™.${RESET}"
+    echo -e "${INFO} ${CYAN}To start: run 'python ytconverter.py' or use your launcher.${RESET}"
 }
 
 main
