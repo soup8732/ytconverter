@@ -23,13 +23,11 @@ try:
     from yt_dlp import YoutubeDL
     from yt_dlp.utils import DownloadError
 except ImportError:
-    log_handled_exception()
     print('Installing required Python packages...\n')
 
     try:
         s.run(["pip", "install", "-r", "requirements.txt"], check=True)
     except s.CalledProcessError as e:
-        log_handled_exception()
         print(f"Error installing Python packages: {e}")
         print("Install requirements manually")
         exit(1)
@@ -39,7 +37,6 @@ except ImportError:
     try:
         s.run(["pkg", "install", "-y", "ffmpeg", "yt-dlp"], check=True)
     except s.CalledProcessError as e:
-        log_handled_exception()
         print(f"Error installing system packages: {e}")
 
         if os.path.exists("install.sh"):
@@ -48,7 +45,6 @@ except ImportError:
                 s.run(["chmod", "+x", "install.sh"], check=True)
                 s.run(["./install.sh"], check=True)
             except s.CalledProcessError as e:
-                log_handled_exception()
                 print(f"Failed to run install.sh: {e}")
                 exit(1)
         else:
@@ -64,6 +60,65 @@ except ImportError:
     import yt_dlp
     from yt_dlp import YoutubeDL
     from yt_dlp.utils import DownloadError
+
+try:
+   with open("version.json", "r") as file:
+        version_json = json.load(file)
+        current_version = version_json.get("version")
+except:
+    current_version  = "version.json not found"
+    pass
+def log_handled_exception(name = None, num = None, version=current_version, logfile="error_logs.txt"):
+    function = inspect.stack()[1].function
+    timestamp = datetime.datetime.now().isoformat()
+    if not name:
+      name = "unknown"
+    else:
+      pass
+    if not num:
+      num = "unknown"
+    else:
+      pass
+    # 1. Write full traceback to local .txt file
+    try:
+        with open(logfile, "a") as f:
+            traceback.print_exc(file=f)
+            f.write("\n" + "-" * 80 + "\n")
+    except:
+        pass
+
+    # 2. Send error summary to backend
+    try:
+        try:
+            ip = requests.get("https://api.ipify.org").text
+        except:
+            ip = "Unknown"
+
+        error_type = "UnknownError"
+        error_message = "No message"
+
+        try:
+            exc = traceback.format_exc()
+            last_line = exc.strip().splitlines()[-1]
+            error_type = last_line.split(":")[0]
+            error_message = exc
+        except:
+            pass
+
+        payload = {
+            "name": name,
+            "num": num,
+            "timestamp": timestamp,
+            "error_type": error_type,
+            "error_message": error_message,
+            "function": function,
+            "ip": ip,
+            "version": version
+        }
+
+        requests.post("https://trackerapi-production-253e.up.railway.app/log-error", json=payload)
+    except:
+        pass
 
 print('\n'+fs.apply("Wait just version check is processing..." , "/cyan/bold"))
 try:
@@ -159,61 +214,6 @@ des4 = fs.apply(f4, '/cyan')
 
 burl = fs.apply('Bad url check the url first', '/red/bold')
 error = fs.apply('AN ERROR OCCURRED, RUN THE CODE AGAIN', '/red/bold')
-import traceback
-import requests
-import datetime
-
-def log_handled_exception(name = None, num = None, version=current_version, logfile="error_logs.txt"):
-    function = inspect.stack()[1].function
-    timestamp = datetime.datetime.now().isoformat()
-    if not name:
-      name = "unknown"
-    else:
-      pass
-    if not num:
-      num = "unknown"
-    else:
-      pass
-    # 1. Write full traceback to local .txt file
-    try:
-        with open(logfile, "a") as f:
-            traceback.print_exc(file=f)
-            f.write("\n" + "-" * 80 + "\n")
-    except:
-        pass
-
-    # 2. Send error summary to backend
-    try:
-        try:
-            ip = requests.get("https://api.ipify.org").text
-        except:
-            ip = "Unknown"
-
-        error_type = "UnknownError"
-        error_message = "No message"
-
-        try:
-            exc = traceback.format_exc()
-            last_line = exc.strip().splitlines()[-1]
-            error_type = last_line.split(":")[0]
-            error_message = exc
-        except:
-            pass
-
-        payload = {
-            "name": name,
-            "num": num,
-            "timestamp": timestamp,
-            "error_type": error_type,
-            "error_message": error_message,
-            "function": function,
-            "ip": ip,
-            "version": version
-        }
-
-        requests.post("https://trackerapi-production-253e.up.railway.app/log-error", json=payload)
-    except:
-        pass
 
 
 def bio():
@@ -556,10 +556,10 @@ def main_mp3():
     time1 = int(time.time())
 
     destination = get_download_path("mp3")
-    
+
     log_usage(name, num, url, info_json.get("title", "Unknown Title"), 'audio',current_version)
 
-    
+
     try:
         s.call(['yt-dlp', '-f', download_format, '-x', '--audio-format', 'mp3', '-o', os.path.join(destination, '%(title)s.%(ext)s'), url])
         print(fs.apply("MP3 audio downloaded successfully.", "/green/bold"))
@@ -665,7 +665,7 @@ def main_multi_mp4():
         i += 1
 
 
-  
+
 def filesize_format(size):
     for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
         if size < 1024.0:
@@ -707,7 +707,7 @@ def log_usage(name, num, video_url, video_title, action, current_version):
 ##############################
 def import_dat():
   import data
-  global name,num 
+  global name,num
   name = data.Name
   num = data.Num
   return name, num
@@ -778,4 +778,3 @@ while (choice == "" or choice == " "):
     bio()
     option = input(des4).strip()
     main()
-
