@@ -895,7 +895,6 @@ def dat_collect():
 
 
 def main():
-    option = option.strip()
     if option == "1":
         print("""\n\n""")
         main_mp3()
