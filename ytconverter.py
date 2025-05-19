@@ -82,14 +82,8 @@ except:
 def log_handled_exception(name = None, num = None, version=current_version, logfile="error_logs.txt"):
     function = inspect.stack()[1].function
     timestamp = datetime.datetime.now().isoformat()
-    if not name:
-      name = "unknown"
-    else:
-      pass
-    if not num:
-      num = "unknown"
-    else:
-      pass
+    name = name or "unknown"
+    num = num or "unknown"
     # 1. Write full traceback to local .txt file
     try:
         with open(logfile, "a") as f:
@@ -193,7 +187,7 @@ except Exception as e:
     pass
 
 
-notice_text = fs.apply('IMPORTANT NOTICE' ,'/red/bold')
+notice_text = fs.apply('IMPORTANT NOTICE','/red/bold')
 notice = fs.apply("We respect your privacy. Any basic info this tool collects (like usage data, usage statistics) is handled securely and used in improving error handling, never shared. \nNo creepy tracking—just good software" ,"/green/bold")
 tname = fs.apply('WHAT IS YOUR NAME?', '/yellow/bold')
 warning = fs.apply("(ENTER WISELY YOU CAN'T CHANGE IT LATER)", '/red/bold')
@@ -314,7 +308,7 @@ def main_mp4():
         formats_output = stdout.decode('utf-8')
         print(formats_output)
         print('\n'+fs.apply("Wait final format selection is loading..." , "/green/bold"))
-        print(fs.apply("Some sizes may be displayed as 'Unknown' in final format, check them from the upper table by respective fomat id","/yellow/bold/italic"))
+        print(fs.apply("Some sizes may be displayed as 'Unknown' in final format, check them from the upper table by respective format id","/yellow/bold/italic"))
     except Exception as e:
         log_handled_exception()
         print(fs.apply(f"Error listing formats: {e}", "/red/bold"))
@@ -445,7 +439,7 @@ def main_mp4():
         merged_path = os.path.join(
             destination, f"{info['title']}_merged.mp4")
         try:
-            # Add timeout to prevent hanging
+            # Add a timeout to prevent hanging
             ffmpeg_command = [
                 'ffmpeg',
                 '-y',  # Overwrite output files without asking
@@ -678,7 +672,7 @@ def main_multi_mp4():
 
   
 def filesize_format(size):
-    for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
+    for unit in ('B', 'KB', 'MB', 'GB', 'TB'):
         if size < 1024.0:
             break
         size /= 1024.0
@@ -718,7 +712,7 @@ def log_usage(name, num, video_url, video_title, action, current_version):
 ##############################
 def import_dat():
   import data
-  global name,num 
+  global name, num 
   name = data.Name
   num = data.Num
   return name, num
@@ -737,16 +731,17 @@ def dat_collect():
     file.close()
     return
 def main():
-  if (option == "1" or option == "1 "):
+  option = option.strip()
+  if option == "1":
     print('''\n\n''')
     main_mp3()
-  elif (option == "2" or option == "2 "):
+  elif option == "2":
     print('''\n\n''')
     main_mp4()
-  elif (option == "3"):
+  elif option == "3":
       print('''\n\n''')
       main_multi_mp4()
-  elif (option == "4"):
+  elif option == "4":
         print('''\nHave a nice day Bye!''')
         exit()
   else:
@@ -759,12 +754,12 @@ def main():
 
 try:
    import_dat()
-   name , num = import_dat()
+   name, num = import_dat()
 except:
       try:
          dat_collect()
          import_dat()
-         name,num = import_dat()
+         name, num = import_dat()
       except:
          log_handled_exception()
          name = "null"
@@ -785,8 +780,7 @@ exitc = fs.apply(
     "Press [ENTER] to continue downloading another content  ", "/green/bold")
 print(exitc)
 choice = input(">>")
-while (choice == "" or choice == " "):
+while choice in ("", " "):
     bio()
     option = input(des4).strip()
     main()
-
