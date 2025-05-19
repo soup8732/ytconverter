@@ -1,5 +1,13 @@
 
 ## YTConverter™
+<p align="center">
+  <img src="https://img.shields.io/badge/Version-3.4.1-blueviolet?style=for-the-badge&logo=github" />
+  <img src="https://img.shields.io/github/forks/kaifcodec/ytconverter?style=for-the-badge&logo=git" />
+  <img src="https://img.shields.io/github/stars/kaifcodec/ytconverter?style=for-the-badge&logo=github" />
+  <img src="https://img.shields.io/github/issues/kaifcodec/ytconverter?style=for-the-badge&logo=github" />
+  <img src="https://img.shields.io/badge/Status-Stable-brightgreen?style=for-the-badge" />
+</p>
+
 ---
 `YTConverter™` is a Python-based project developed by [kaifcodec](https://github.com/kaifcodec) designed to provide a robust tool for converting YouTube videos into various formats. This tool simplifies the process of downloading and converting videos from YouTube.
 
