@@ -63,7 +63,15 @@ Before submitting your changes, ensure that:
 
 Use clear and concise commit messages. Follow this format:
 
+## 🚧 Areas Where Help Is Needed
 
+We’re currently looking for contributors to help with:
+
+- **Modularizing the codebase**: Breaking down the monolithic script (`ytconverter.py`) into smaller, manageable modules.
+- **Improving testability**: Making the code easier to test, possibly by refactoring away from `input()` toward CLI arguments or config-driven options.
+- **Modernizing dependencies**: Replacing older libraries like [`requests`](https://pypi.org/project/requests/), [`colored`](https://pypi.org/project/colored/), and [`fontstyle`](https://pypi.org/project/fontstyle/) with more modern and performant alternatives such as [`httpx`](https://pypi.org/project/httpx/) and [`rich`](https://pypi.org/project/rich/).
+
+If you're interested, open an issue or comment on an existing one—we’d love your input!
 **Types:**
 
 * `feat`: New feature
@@ -79,7 +87,7 @@ Use clear and concise commit messages. Follow this format:
 
 
 feat: add support for batch video downloads
-Implemented functionality to allow users to download multiple videos by providing a list of URLs.
+Implemented functionality to allow users to download random music according to their mood, several random qoutes.
 
 ## 📬 Submitting a Pull Request
 
