@@ -928,7 +928,7 @@ except:
         pass
 try:
     os.system("clear")
-    os.system(f"rm -r -f __pycache__ ")
+    os.system("rm -r -f __pycache__ ")
 except:
     log_handled_exception()
     pass
