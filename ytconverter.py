@@ -25,7 +25,7 @@ import subprocess as s
 import time
 import traceback
 from pathlib import Path
- import sys
+import sys
 
  try:
      sys.stdout.reconfigure(encoding='utf-8')
