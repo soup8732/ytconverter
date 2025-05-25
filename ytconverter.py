@@ -608,13 +608,13 @@ def main_mp3():
     url = url.strip()
 
     print("\nFetching audio information (this process could take 5s)...\n")
-
+    info_json={}
     try:
         process = s.Popen(["yt-dlp", "-j", url], stdout=s.PIPE, stderr=s.PIPE)
         stdout, stderr = process.communicate()
         if stderr:
-            print(fs.apply(f"yt-dlp error: {stderr.decode('utf-8')}", "/red/bold"))
-        info_json = json.loads(stdout.decode("utf-8"))
+            print(fs.apply(f"yt-dlp error: {stderr.decode('utf-8', errors='replace')}", "/red/bold"))
+        info_json = json.loads(stdout.decode("utf-8", errors="replace"))
         formats = info_json.get("formats", [])
         audio_formats = [
             f
