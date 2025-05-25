@@ -375,8 +375,8 @@ def main_mp4():
         )
         stdout, stderr = process.communicate()
         if stderr:
-            print(fs.apply(f"Warning: {stderr.decode('utf-8')}", "/yellow/bold"))
-        formats_output = stdout.decode("utf-8")
+            print(fs.apply(f"Warning: {stderr.decode('utf-8', errors='replace')}", "/yellow/bold"))
+        formats_output = stdout.decode("utf-8", errors="replace")
         print(formats_output)
         print(
             "\n" + fs.apply("Wait final format selection is loading...", "/green/bold")
