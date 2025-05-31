@@ -21,7 +21,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        # The script itself tries to install requirements, but it's good practice to ensure they are installed here.
+        # Check pyproject.toml or requirements.txt from your project.
+        # Assuming your dependencies are listed in 'requires-python' and 'dependencies' in the script,
+        # you might need to extract them or create a requirements.txt if not already present.
+        # For this example, let's assume dependencies like colored, fontstyle, httpx, yt-dlp are used.
+        pip install colored fontstyle httpx yt-dlp
 
     - name: Check syntax of ytconverter.py
       run: python -m py_compile ytconverter.py
@@ -42,7 +47,8 @@ jobs:
       shell: bash
       run: |
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        # Same as above, ensure dependencies are installed for the Windows runner
+        pip install colored fontstyle httpx yt-dlp
 
     - name: Create dummy data.json
       shell: bash
@@ -59,30 +65,39 @@ jobs:
       run: |
         ffmpeg -version
 
+    # The 'n' inputs are to bypass the initial data collection and version update prompts.
+    # The empty string '' is to simulate pressing Enter at the 'Press [ENTER] to continue...' prompt.
+    # The dummy URLs are just for the input, yt-dlp will fail on them.
+
     - name: Test Single MP3 Download
       shell: bash
       run: |
         echo "Starting Single MP3 Download Test"
-        printf "n\n1\nhttps://www.youtube.com/watch?v=YE7_OuSwKQY\n\n0\n" | python ytconverter.py
+        # Provide 'n' for initial prompts, then '1' for MP3, then a dummy URL, then '0' for best audio format, then '' for the continue prompt.
+        printf "n\nn\nn\n1\nhttp://www.youtube.com/watch?v=dQw4w9WgXcQ\n0\n\n" | python ytconverter.py
         echo "Single MP3 Download Test Finished"
 
     - name: Test Single MP4 Download
       shell: bash
       run: |
         echo "Starting Single MP4 Download Test"
-        printf "n\n2\nhttps://www.youtube.com/watch?v=YE7_OuSwKQY\n1\n\n" | python ytconverter.py
+        # Provide 'n' for initial prompts, then '2' for MP4, then a dummy URL, then '1' to select the first format option, then '' for the continue prompt.
+        printf "n\nn\nn\n2\nhttp://www.youtube.com/watch?v=dQw4w9WgXcQ\n1\n\n" | python ytconverter.py
         echo "Single MP4 Download Test Finished"
 
     - name: Test Multiple MP4 Download
       shell: bash
       run: |
         echo "Starting Multiple MP4 Download Test"
-        printf "n\n3\nhttps://www.youtube.com/watch?v=YE7_OuSwKQY\nhttps://www.youtube.com/watch?v=IBqS3t3qAg0\n0\n3\n\n" | python ytconverter.py
+        # Provide 'n' for initial prompts, then '3' for multi-MP4, then a dummy URL, then '0' to start download for multi, then '1' for quality, then '' for the continue prompt.
+        printf "n\nn\nn\n3\nhttp://www.youtube.com/watch?v=dQw4w9WgXcQ\n0\n1\n\n" | python ytconverter.py
         echo "Multiple MP4 Download Test Finished"
 
     - name: Test Exit Option
       shell: bash
       run: |
         echo "Starting Exit Option Test"
-        printf "n\n4\n" | python ytconverter.py
+        # Provide 'n' for initial prompts, then '4' to exit. No further input is needed.
+        printf "n\nn\nn\n4\n" | python ytconverter.py
         echo "Exit Option Test Finished"
+
