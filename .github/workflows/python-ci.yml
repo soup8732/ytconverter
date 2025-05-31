@@ -1,4 +1,4 @@
-/name: Python CI
+name: Python CI
 
 on:
   push:
@@ -63,49 +63,26 @@ jobs:
       shell: bash
       run: |
         echo "Starting Single MP3 Download Test"
-        python ytconverter.py <<EOF
-n
-1
-https://www.youtube.com/watch?v=YE7_OuSwKQY
-
-0
-EOF
+        printf "n\n1\nhttps://www.youtube.com/watch?v=YE7_OuSwKQY\n\n0\n" | python ytconverter.py
         echo "Single MP3 Download Test Finished"
 
     - name: Test Single MP4 Download
       shell: bash
       run: |
         echo "Starting Single MP4 Download Test"
-        python ytconverter.py <<EOF
-n
-2
-https://www.youtube.com/watch?v=YE7_OuSwKQY
-1
-
-EOF
+        printf "n\n2\nhttps://www.youtube.com/watch?v=YE7_OuSwKQY\n1\n\n" | python ytconverter.py
         echo "Single MP4 Download Test Finished"
 
     - name: Test Multiple MP4 Download
       shell: bash
       run: |
         echo "Starting Multiple MP4 Download Test"
-        python ytconverter.py <<EOF
-n
-3
-https://www.youtube.com/watch?v=YE7_OuSwKQY
-https://www.youtube.com/watch?v=IBqS3t3qAg0
-0
-3
-
-EOF
+        printf "n\n3\nhttps://www.youtube.com/watch?v=YE7_OuSwKQY\nhttps://www.youtube.com/watch?v=IBqS3t3qAg0\n0\n3\n\n" | python ytconverter.py
         echo "Multiple MP4 Download Test Finished"
 
     - name: Test Exit Option
       shell: bash
       run: |
         echo "Starting Exit Option Test"
-        python ytconverter.py <<EOF
-n
-4
-EOF
+        printf "n\n4\n" | python ytconverter.py
         echo "Exit Option Test Finished"
