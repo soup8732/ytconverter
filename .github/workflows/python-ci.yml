@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -27,34 +26,79 @@ jobs:
     - name: Check syntax of ytconverter.py
       run: python -m py_compile ytconverter.py
 
-    # - name: Run tests
-    #   run: pytest
+  test-on-windows:
+    runs-on: windows-latest
+    needs: build # Ensures syntax check passes before running full tests
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-  # codespell_and_ruff:
-    # runs-on: ubuntu-latest
-    # steps:
-    # - uses: actions/checkout@v4
-    # - uses: codespell-project/actions-codespell@v2
-    # - uses: astral-sh/ruff-action@v3
-    # - uses: astral-sh/ruff-action@v3
-      # with:
-        # args: "format --check --diff"
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
 
-  # test-on-windows:
-    # runs-on: windows-latest
-    # steps:
-    # - name: Checkout repository
-      # uses: actions/checkout@v4
+    - name: Install dependencies
+      shell: bash # Using bash for consistency in commands
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    # - name: Set up Python
-      # uses: actions/setup-python@v5
-      # with:
-        # python-version: '3.9'
+    - name: Create dummy data.json
+      shell: bash
+      # This bypasses the initial script prompts for name and email.
+      run: echo '{"Name": "CI User", "Num": "ci@example.com"}' > data.json
 
-    # - name: Install dependencies
-      # run: |
-        # python -m pip install --upgrade pip
-        # python -c "import os; os.system('pip install -r requirements.txt') if os.path.exists('requirements.txt') else None"
+    - name: Check for ffmpeg (usually pre-installed on GitHub runners)
+      run: ffmpeg -version # This step will fail if ffmpeg is not found, indicating an environment issue.
 
-    # - name: Run ytconverter on Windows
-      # run: python ytconverter.py
+    - name: Test Single MP3 Download
+      shell: bash
+      # Inputs:
+      # 1. "n"       - For the "Do you want to update?" prompt (if versions mismatch).
+      # 2. "1"       - Main menu: Select "Single Music Mp3".
+      # 3. "URL"     - The YouTube URL. Using a short, reliable test video.
+      # 4. ""         - Empty line for download path (uses default).
+      # 5. "0"       - Audio quality: Select "best available".
+      run: |
+        echo "Starting Single MP3 Download Test"
+        (echo "n"; echo "1"; echo "https://www.youtube.com/watch?v=YE7_OuSwKQY"; echo ""; echo "0") | python ytconverter.py
+        echo "Single MP3 Download Test Finished"
+
+    - name: Test Single MP4 Download
+      shell: bash
+      # Inputs:
+      # 1. "n"       - For "Do you want to update?".
+      # 2. "2"       - Main menu: Select "Single Video".
+      # 3. "URL"     - The YouTube URL.
+      # 4. "1"       - Format choice: Select the first available format from the script's list.
+      # 5. ""         - Empty line for download path (uses default).
+      run: |
+        echo "Starting Single MP4 Download Test"
+        (echo "n"; echo "2"; echo "https://www.youtube.com/watch?v=YE7_OuSwKQY"; echo "1"; echo "") | python ytconverter.py
+        echo "Single MP4 Download Test Finished"
+
+    - name: Test Multiple MP4 Download
+      shell: bash
+      # Inputs:
+      # 1. "n"       - For "Do you want to update?".
+      # 2. "3"       - Main menu: Select "Multiple videos".
+      # 3. "URL1"    - First YouTube URL.
+      # 4. "URL2"    - Second YouTube URL.
+      # 5. "0"       - Stop adding URLs.
+      # 6. "3"       - Quality choice: e.g., 720p.
+      # 7. ""         - Empty line for download path (uses default).
+      run: |
+        echo "Starting Multiple MP4 Download Test"
+        (echo "n"; echo "3"; echo "https://www.youtube.com/watch?v=YE7_OuSwKQY"; echo "https://www.youtube.com/watch?v=IBqS3t3qAg0"; echo "0"; echo "3"; echo "") | python ytconverter.py
+        echo "Multiple MP4 Download Test Finished"
+
+    - name: Test Exit Option
+      shell: bash
+      # Inputs:
+      # 1. "n"       - For "Do you want to update?".
+      # 2. "4"       - Main menu: Select "Exit YTConverter".
+      run: |
+        echo "Starting Exit Option Test"
+        (echo "n"; echo "4") | python ytconverter.py
+        echo "Exit Option Test Finished"
