@@ -881,9 +881,11 @@ def main_multi_mp4():
             continue  # Go back to the beginning of the loop for a new URL
         down_list.append(url)
         i += 1
-        
-        
-        
+
+
+
+
+
 def main_multi_mp3():
     down_list = []
     i = 1
@@ -948,8 +950,8 @@ def main_multi_mp3():
                     print(fs.apply(f"\nStarting Audio {k} Download...\n", "/cyan/bold"))
                     time1 = int(time.time())
                     vid_title = sanitize(info["title"])
-                    audio_path = os.path.join(destination, vid_title + ".mp3")
-                    
+                    audio_path = os.path.join(destination, vid_title)
+
                     log_usage(name, num, url, vid_title, f"multi_audio_{quality_map[choice]}kbps", current_version)
 
                     ydl_opts = {
