@@ -33,13 +33,19 @@ Check the screenshots below👇
 - ffmpeg & yt-dlp binary
 
 ## Install pypi Package (For Any)
-1. After installing latest python
-
+1. Clone the repository
    ```bash
+   cd ytconverter
+   ./standalone/install.sh # Only for Linux-like & Termux users
+   ```
+   ```bash
+   
    pip install ytconverter
 
    ytconverter -S
    ```
+- ⚠️ You need to manually install ffmpeg for windows or you can try `standalone/install.bat`
+
 ---   
 - ⚠️ However usage of standalone ytconverter.py is recommended⚠️
 - Pypi package still in beta, Follow the below process 👇👇
