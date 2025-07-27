@@ -41,9 +41,10 @@ Check the screenshots below👇
 
    ytconverter -S
    ```
-# ⚠️ However usage of standalone ytconverter.py is recommended⚠️
-- Pypi package still in beta, Follow tge below process 👇👇
-
+---   
+- ⚠️ However usage of standalone ytconverter.py is recommended⚠️
+- Pypi package still in beta, Follow the below process 👇👇
+---
 ### Installation For Linux (Ubuntu/Debian/Fedora/Arch):
 1. Install Python:
    ```bash
