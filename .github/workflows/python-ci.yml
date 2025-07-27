@@ -80,7 +80,7 @@ jobs:
       run: |
         echo "Starting Single MP4 Download Test"
         # 'n' inputs, '2' selects MP4, dummy URL, '1' for first format, empty line for continue.
-        printf "n\nn\nn\n2\nhttp://www.youtube.com/watch?v=dQw4w9WgXcQ\n1\n\n" | python3 standalone/ytconverter.py
+        printf "\n2\nhttp://www.youtube.com/watch?v=dQw4w9WgXcQ\n1\n\n" | python3 standalone/ytconverter.py
         echo "Single MP4 Download Test Finished"
 
     - name: Test Multiple MP4 Download
