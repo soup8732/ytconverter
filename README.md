@@ -7,9 +7,6 @@
   <img src="https://img.shields.io/badge/Status-Stable-brightgreen?style=for-the-badge" />
   <img src="https://img.shields.io/pypi/dm/ytconverter?label=PyPI%20Downloads&color=blue&logo=pypi" />
   <img src="https://static.pepy.tech/badge/ytconverter?left_color=black&right_color=brightgreen" />
-  <a href="https://pypi.org/project/ytconverter">
-    <img src="https://badge.fury.io/py/ytconverter.svg" alt="PyPI version" />
-  </a>
 </p>
 
 ---
