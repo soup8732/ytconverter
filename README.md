@@ -162,7 +162,6 @@ python3 ytconverter.py
 ## Screenshots
 <p align= "left">
  <img width="1004" height="469" alt="1000122247" src="https://github.com/user-attachments/assets/80269ce0-1443-4dc4-836f-3bf63905879b" />
-" width="600" height="600"/>
 </p>
 <p align="left">
 <img src= "https://github.com/user-attachments/assets/8e9d00ce-b698-4b1f-8870-badd5d274442" width="600" height="600"/>
