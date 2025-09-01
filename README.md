@@ -206,4 +206,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## Contact
 For any questions or feedback, please open an issue or contact [kaifcodec](https://github.com/kaifcodec).
 
+# If you found this tool helpful leave a star that will motivate me to maintain this project and add new features 
+---
+## Stars ⭐ 
+[![Star History Chart](https://api.star-history.com/svg?repos=kaifcodec/ytconverter&type=Date)](https://star-history.com/#kaifcodec/ytconverter&Date)
 ---
