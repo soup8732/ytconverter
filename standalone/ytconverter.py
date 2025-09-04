@@ -482,6 +482,7 @@ def main_mp4():
         if filesize is None:
             filesize = fmt.get("filesize_approx")
             if filesize:
+                filesize = str(fmt.get("filesize_approx"))
                 filesize_str = f"{float(filesize.replace('~', '')) / (1024 * 1024):.2f} MB (approx.)"
             else:
                 filesize_str = "Unknown size"
