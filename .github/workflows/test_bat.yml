@@ -1,0 +1,19 @@
+name: Test Windows Install
+
+on: [workflow_dispatch]
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Run install.bat
+        run: cmd.exe /c standalone/install.bat
+
+      - name: Check ffmpeg
+        run: ffmpeg --version
+
+      - name: Check yt-dlp
+        run: yt-dlp --version
