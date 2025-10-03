@@ -19,7 +19,7 @@ jobs:
       - name: Verify batch file existence
         run: |
           echo Current directory: %CD%
-          dir standalone
+          dir ytconverter/standalone
         shell: cmd
 
       - name: Run YTConverter installer
