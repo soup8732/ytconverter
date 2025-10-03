@@ -1,5 +1,4 @@
-# .github/workflows/python_ci.yml
-name: Python CI
+name: test
 
 on:
   workflow_dispatch:  # Manual trigger only
@@ -17,8 +16,15 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run YTConverter installer (venv + PATH fixes)
-        run: standalone/install.bat
+      - name: Verify batch file existence
+        run: |
+          echo Current directory: %CD%
+          dir standalone
+        shell: cmd
+
+      - name: Run YTConverter installer
+        run: |
+          cmd /c "standalone/install.bat"
         shell: cmd
 
       - name: Check ffmpeg availability
