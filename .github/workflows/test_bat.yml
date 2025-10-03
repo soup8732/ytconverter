@@ -10,10 +10,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run install.bat
-        run: cmd.exe /c standalone/install.bat
+        run: standalone\install.bat
+        shell: cmd
 
       - name: Check ffmpeg
         run: ffmpeg --version
+        shell: cmd
 
       - name: Check yt-dlp
         run: yt-dlp --version
+        shell: cmd
