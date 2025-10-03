@@ -23,26 +23,14 @@ jobs:
           echo Current directory: %CD%
           dir /s /b
 
-      - name: Create Python virtual environment
+      - name: Run YTConverter installer
         shell: cmd
         run: |
-          python -m venv .venv
-          call .venv\Scripts\activate
-          python -m pip install --upgrade pip
-          if exist standalone\requirements.txt (
-              pip install -r standalone\requirements.txt
-          )
-
-      - name: Run YTConverter installer with fallback
-        shell: cmd
-        run: |
-          REM Primary attempt: use known path
           if exist standalone\install.bat (
               echo Found installer at standalone\install.bat
               call standalone\install.bat
           ) else (
               echo standalone\install.bat not found, searching entire repo...
-              REM Search recursively for install.bat
               for /R %%G in (install.bat) do (
                   echo Found installer at %%G
                   call "%%G"
