@@ -1,0 +1,40 @@
+name: Test Windows Installer
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run install.bat
+        working-directory: ./standalone
+        run: |
+          echo Running YTConverter Windows installer...
+          install.bat
+
+      - name: Test yt-dlp
+        shell: cmd
+        run: |
+          echo Checking yt-dlp version...
+          yt-dlp --version
+
+      - name: Test ffmpeg
+        shell: cmd
+        run: |
+          echo Checking ffmpeg version...
+          ffmpeg -version
+
+      - name: Cleanup
+        shell: cmd
+        run: |
+          echo Cleaning temp folders...
+          rmdir /S /Q "%LocalAppData%\Programs\YTConverter" 2>nul
