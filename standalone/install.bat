@@ -1,4 +1,5 @@
 @echo off
+cd /d "%~dp0"
 setlocal enabledelayedexpansion
 
 set "TEMP_DIR=%cd%\installer_temp"
