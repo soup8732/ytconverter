@@ -72,7 +72,7 @@ ytconverter -S
 ```
 ## Update PyPI package
 ```bash
-pip install -U ytconverter
+ytconverter -U
 
 ```
 ### 🪟 Windows
@@ -80,12 +80,8 @@ pip install -U ytconverter
 ```bash
 git clone https://github.com/kaifcodec/ytconverter.git
 cd ytconverter/standalone/
+install.bat # Or manually install ffmpeg and add it to PATH
 ```
-## Run installer
-```bash
-install.bat
-```
-## Or manually install ffmpeg and add it to PATH
 ## Then run:
 ```bash
 python ytconverter.py
