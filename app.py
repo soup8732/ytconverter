@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Mehndi Playlist Converter - Web Application
+Music Playlist Converter - Web Application
 Flask web app for creating custom trimmed song playlists
 """
 
@@ -17,14 +17,14 @@ import uuid
 import logging
 
 app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET_KEY', 'mehndi-playlist-secret-key-change-this')
+app.secret_key = os.environ.get('SECRET_KEY', 'music-playlist-converter-secret-key-change-this')
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Configure upload folder
-UPLOAD_FOLDER = Path(tempfile.gettempdir()) / 'mehndi_uploads'
+UPLOAD_FOLDER = Path(tempfile.gettempdir()) / 'playlist_uploads'
 UPLOAD_FOLDER.mkdir(exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max
@@ -336,7 +336,7 @@ def process_playlist():
             }), 500
 
         # Create ZIP
-        zip_name = data.get('zip_name', 'mehndi_songs.zip')
+        zip_name = data.get('zip_name', 'playlist_songs.zip')
         zip_path = create_zip(successful_files, output_dir, zip_name)
 
         if not zip_path:

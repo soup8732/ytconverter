@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎵 Mehndi Playlist Converter</title>
+    <title>🎵 Music Playlist Converter</title>
     <style>
         * {
             margin: 0;
@@ -260,7 +260,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>🎵 Mehndi Playlist Converter</h1>
+        <h1>🎵 Music Playlist Converter</h1>
         <p class="subtitle">Create custom trimmed song playlists for your events</p>
 
         <div class="info-box">
@@ -273,7 +273,7 @@
 
         <div class="form-group">
             <label>Playlist Name</label>
-            <input type="text" id="playlistName" placeholder="e.g., Priya's Mehndi 2024" value="Mehndi Celebration">
+            <input type="text" id="playlistName" placeholder="e.g., Summer Party 2024" value="My Playlist">
         </div>
 
         <div id="songsContainer"></div>
@@ -395,7 +395,7 @@
                 songs.push({ name, url, start, end });
             }
 
-            const playlistName = document.getElementById('playlistName').value.trim() || 'Mehndi Playlist';
+            const playlistName = document.getElementById('playlistName').value.trim() || 'My Playlist';
 
             // Show progress
             document.getElementById('progressContainer').style.display = 'block';

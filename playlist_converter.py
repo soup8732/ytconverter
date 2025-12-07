@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Mehndi Playlist Converter
+Music Playlist Converter
 Easy tool to download, trim, and package YouTube songs for events
 
 Features:
@@ -233,30 +233,30 @@ def create_zip(files: List[Path], output_dir: Path, zip_name: str) -> Optional[P
         print_error(f"Failed to create ZIP: {e}")
         return None
 
-def create_example_config(filename: str = "mehndi_songs.json"):
+def create_example_config(filename: str = "playlist_songs.json"):
     """Create an example configuration file"""
     example_config = {
-        "playlist_name": "Mehndi Celebration 2024",
-        "output_dir": "mehndi_playlist",
+        "playlist_name": "My Custom Playlist 2024",
+        "output_dir": "my_playlist",
         "create_zip": True,
-        "zip_name": "mehndi_songs.zip",
+        "zip_name": "playlist_songs.zip",
         "songs": [
             {
-                "name": "Mehendi Hai Rachne Wali",
+                "name": "Opening Song",
                 "url": "https://www.youtube.com/watch?v=REPLACE_WITH_VIDEO_ID",
                 "start": "0:30",
                 "end": "3:45",
                 "notes": "Opening song - keep the energy high!"
             },
             {
-                "name": "Dholida",
+                "name": "Dance Track",
                 "url": "https://www.youtube.com/watch?v=REPLACE_WITH_VIDEO_ID",
                 "start": "0:15",
                 "end": "2:30",
                 "notes": "Great for dance performances"
             },
             {
-                "name": "London Thumakda",
+                "name": "Party Anthem",
                 "url": "https://www.youtube.com/watch?v=REPLACE_WITH_VIDEO_ID",
                 "start": "1:00",
                 "end": "4:00"
@@ -274,22 +274,22 @@ def create_example_config(filename: str = "mehndi_songs.json"):
 
 def main():
     """Main function"""
-    print_header("🎵 Mehndi Playlist Converter 🎵")
+    print_header("🎵 Music Playlist Converter 🎵")
 
     # Parse command line arguments
     if len(sys.argv) < 2:
-        print_info("Usage: python mehndi_playlist.py <config_file.json>")
+        print_info("Usage: python playlist_converter.py <config_file.json>")
         print_info("\nTo create an example configuration file:")
-        print(f"  python mehndi_playlist.py --create-example")
+        print(f"  python playlist_converter.py --create-example")
 
         # Ask if user wants to create example
         try:
             response = input(f"\n{Colors.YELLOW}Create example config? (y/n): {Colors.END}").lower()
             if response == 'y':
                 if create_example_config():
-                    print_success("\nExample config created: mehndi_songs.json")
+                    print_success("\nExample config created: playlist_songs.json")
                     print_info("Edit this file with your YouTube URLs and timestamps, then run:")
-                    print(f"  python mehndi_playlist.py mehndi_songs.json")
+                    print(f"  python playlist_converter.py playlist_songs.json")
                 sys.exit(0)
             else:
                 sys.exit(1)
@@ -299,11 +299,11 @@ def main():
 
     # Handle --create-example flag
     if sys.argv[1] == "--create-example":
-        filename = sys.argv[2] if len(sys.argv) > 2 else "mehndi_songs.json"
+        filename = sys.argv[2] if len(sys.argv) > 2 else "playlist_songs.json"
         if create_example_config(filename):
             print_success(f"Example config created: {filename}")
             print_info("Edit this file with your YouTube URLs and timestamps, then run:")
-            print(f"  python mehndi_playlist.py {filename}")
+            print(f"  python playlist_converter.py {filename}")
         sys.exit(0)
 
     config_file = sys.argv[1]
@@ -319,12 +319,12 @@ def main():
         sys.exit(1)
 
     # Display playlist info
-    playlist_name = config.get('playlist_name', 'Mehndi Playlist')
+    playlist_name = config.get('playlist_name', 'My Playlist')
     print_success(f"Playlist: {playlist_name}")
     print_info(f"Total songs: {len(config['songs'])}")
 
     # Create output directory
-    output_dir = Path(config.get('output_dir', 'mehndi_playlist'))
+    output_dir = Path(config.get('output_dir', 'my_playlist'))
     output_dir.mkdir(exist_ok=True)
     print_info(f"Output directory: {output_dir.absolute()}")
 
@@ -344,7 +344,7 @@ def main():
     zip_path = None
     if config.get('create_zip', True) and successful_files:
         print_header("Creating ZIP Archive")
-        zip_name = config.get('zip_name', 'mehndi_songs.zip')
+        zip_name = config.get('zip_name', 'playlist_songs.zip')
         zip_path = create_zip(successful_files, output_dir, zip_name)
 
     # Print summary
@@ -364,7 +364,7 @@ def main():
         print(f"\n{Colors.BOLD}{Colors.GREEN}📦 ZIP file ready: {zip_path.name}{Colors.END}")
         print(f"  Full path: {zip_path.absolute()}")
 
-    print(f"\n{Colors.BOLD}{Colors.CYAN}🎉 All done! Enjoy your mehndi celebration! 🎉{Colors.END}\n")
+    print(f"\n{Colors.BOLD}{Colors.CYAN}🎉 All done! Enjoy your playlist! 🎉{Colors.END}\n")
 
     # Final status
     if len(successful_files) == len(config['songs']):

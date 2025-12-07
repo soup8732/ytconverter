@@ -1,6 +1,6 @@
-# 🚀 Deploy Mehndi Playlist Converter to Render
+# 🚀 Deploy Music Playlist Converter to Render
 
-This guide will help you deploy the Mehndi Playlist Converter as a web application on Render.
+This guide will help you deploy the Music Playlist Converter as a web application on Render.
 
 ## 📋 What You'll Get
 
@@ -47,7 +47,7 @@ git push origin main
 
 ### Step 4: Access Your App
 
-- Once deployed, Render will give you a URL like: `https://mehndi-playlist-converter.onrender.com`
+- Once deployed, Render will give you a URL like: `https://music-playlist-converter.onrender.com`
 - Share this URL with anyone who needs to create playlists!
 
 ## 🛠️ Manual Deploy (Method 2: Web Dashboard)
@@ -66,7 +66,7 @@ Fill in these settings:
 
 | Setting | Value |
 |---------|-------|
-| **Name** | `mehndi-playlist-converter` |
+| **Name** | `music-playlist-converter` |
 | **Region** | Oregon (US West) or your preferred region |
 | **Branch** | `main` |
 | **Runtime** | Python 3 |
@@ -165,7 +165,7 @@ Render will **automatically redeploy** when you push to main!
 ### Add Custom Domain
 
 1. In service settings, scroll to "Custom Domains"
-2. Add your domain (e.g., `mehndi.yourdomain.com`)
+2. Add your domain (e.g., `playlist.yourdomain.com`)
 3. Update your DNS as instructed
 4. Free SSL included!
 
@@ -250,7 +250,7 @@ ytconverter/
 
 Create a simple landing page with:
 ```
-🎵 Mehndi Playlist Converter
+🎵 Music Playlist Converter
 
 1. Visit: https://your-app.onrender.com
 2. Add YouTube links
@@ -285,7 +285,7 @@ Once deployed, you'll have a professional web app that:
 - ✅ Easy to share
 - ✅ Free to use!
 
-Perfect for creating mehndi playlists without any technical knowledge!
+Perfect for creating custom playlists without any technical knowledge!
 
 ---
 

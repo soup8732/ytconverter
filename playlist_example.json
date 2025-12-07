@@ -1,37 +1,37 @@
 {
-  "playlist_name": "Mehndi Celebration 2024",
-  "output_dir": "mehndi_playlist",
+  "playlist_name": "My Custom Playlist 2024",
+  "output_dir": "my_playlist",
   "create_zip": true,
-  "zip_name": "mehndi_songs.zip",
+  "zip_name": "playlist_songs.zip",
   "songs": [
     {
-      "name": "Mehendi Hai Rachne Wali",
+      "name": "Opening Song",
       "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       "start": "0:30",
       "end": "3:45",
       "notes": "Opening song - keep the energy high! Replace with your actual YouTube URL"
     },
     {
-      "name": "Dholida - Garba Song",
+      "name": "Dance Track",
       "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       "start": "0:15",
       "end": "2:30",
       "notes": "Great for dance performances"
     },
     {
-      "name": "London Thumakda",
+      "name": "Party Anthem",
       "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       "start": "1:00",
       "end": "4:00"
     },
     {
-      "name": "Gal Mitthi Mitthi",
+      "name": "Upbeat Track",
       "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       "start": "0:20",
       "end": "3:15"
     },
     {
-      "name": "Morni Banke",
+      "name": "Closing Song",
       "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       "start": "0:00",
       "end": "2:45",

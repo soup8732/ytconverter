@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: mehndi-playlist-converter
+    name: music-playlist-converter
     env: python
     runtime: python-3.11.0
     region: oregon

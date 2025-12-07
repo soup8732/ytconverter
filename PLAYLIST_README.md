@@ -1,8 +1,8 @@
-# 🎵 Mehndi Playlist Converter
+# 🎵 Music Playlist Converter
 
 **Easy-to-use tool for creating custom trimmed song playlists from YouTube**
 
-Perfect for wedding events, parties, and celebrations where you need specific portions of songs downloaded and ready to play in order!
+Perfect for events, parties, performances, and any occasion where you need specific portions of songs downloaded and ready to play in order!
 
 ## ✨ Features
 
@@ -33,16 +33,16 @@ pip install yt-dlp
 Create a configuration file (or use the example):
 
 ```bash
-python mehndi_playlist.py --create-example my_songs.json
+python playlist_converter.py --create-example my_songs.json
 ```
 
 This creates a file like:
 ```json
 {
-  "playlist_name": "Mehndi Celebration 2024",
-  "output_dir": "mehndi_playlist",
+  "playlist_name": "My Custom Playlist 2024",
+  "output_dir": "my_playlist",
   "create_zip": true,
-  "zip_name": "mehndi_songs.zip",
+  "zip_name": "playlist_songs.zip",
   "songs": [
     {
       "name": "Song Name 1",
@@ -77,10 +77,10 @@ Open `my_songs.json` and:
 ### Step 4: Run the Tool
 
 ```bash
-python mehndi_playlist.py my_songs.json
+python playlist_converter.py my_songs.json
 ```
 
-That's it! Your trimmed songs will be in the `mehndi_playlist` folder, and you'll have a `mehndi_songs.zip` file ready to share or upload!
+That's it! Your trimmed songs will be in the `my_playlist` folder, and you'll have a `playlist_songs.zip` file ready to share or upload!
 
 ## 📖 Detailed Usage
 
@@ -88,10 +88,10 @@ That's it! Your trimmed songs will be in the `mehndi_playlist` folder, and you'l
 
 | Field | Required | Description | Default |
 |-------|----------|-------------|---------|
-| `playlist_name` | No | Name of your playlist | "Mehndi Playlist" |
-| `output_dir` | No | Where to save the files | "mehndi_playlist" |
+| `playlist_name` | No | Name of your playlist | "My Playlist" |
+| `output_dir` | No | Where to save the files | "my_playlist" |
 | `create_zip` | No | Create a ZIP file? | `true` |
-| `zip_name` | No | Name of the ZIP file | "mehndi_songs.zip" |
+| `zip_name` | No | Name of the ZIP file | "playlist_songs.zip" |
 | `songs` | **Yes** | Array of song objects | - |
 
 ### Song Object Format
@@ -104,14 +104,14 @@ That's it! Your trimmed songs will be in the `mehndi_playlist` folder, and you'l
 | `end` | **Yes** | End timestamp (MM:SS or H:MM:SS) |
 | `notes` | No | Optional notes (not used in processing) |
 
-### Example: Real Mehndi Playlist
+### Example: Custom Playlist
 
 ```json
 {
-  "playlist_name": "Priya's Mehndi - December 2024",
-  "output_dir": "priya_mehndi",
+  "playlist_name": "Summer Party - December 2024",
+  "output_dir": "summer_party",
   "create_zip": true,
-  "zip_name": "priya_mehndi_songs.zip",
+  "zip_name": "summer_party_songs.zip",
   "songs": [
     {
       "name": "Mehendi_Opening",
@@ -162,14 +162,14 @@ That's it! Your trimmed songs will be in the `mehndi_playlist` folder, and you'l
 ### Organizing Multiple Events
 
 Create separate config files:
-- `mehndi_songs.json`
+- `playlist_songs.json`
 - `sangeet_songs.json`
 - `reception_songs.json`
 
 Run each separately:
 ```bash
-python mehndi_playlist.py mehndi_songs.json
-python mehndi_playlist.py sangeet_songs.json
+python playlist_converter.py playlist_songs.json
+python playlist_converter.py party_songs.json
 ```
 
 ## 🛠️ Troubleshooting
@@ -208,12 +208,12 @@ pip install --user yt-dlp
 After running, you'll have:
 
 ```
-mehndi_playlist/
+my_playlist/
 ├── 01_Song_Name_1.mp3
 ├── 02_Song_Name_2.mp3
 ├── 03_Song_Name_3.mp3
 ├── ...
-└── mehndi_songs.zip  (contains all the MP3s)
+└── playlist_songs.zip  (contains all the MP3s)
 ```
 
 The ZIP file is ready to:
@@ -224,7 +224,7 @@ The ZIP file is ready to:
 
 ## 🎯 Common Use Cases
 
-### Wedding Mehndi
+### Event Playlist
 Create a perfectly timed playlist with all the best parts of songs - no awkward intros or long outros!
 
 ### Dance Performances
@@ -241,7 +241,7 @@ Give your DJ a USB drive with pre-trimmed songs in the exact order.
 ### Custom Output Directory
 ```json
 {
-  "output_dir": "/path/to/my/music/mehndi",
+  "output_dir": "/path/to/my/music/playlist",
   "songs": [...]
 }
 ```
@@ -281,13 +281,13 @@ A: Absolutely! Works for any playlist - birthday parties, workouts, study music,
 1. **Collect your songs:** Browse YouTube, save links
 2. **Note timestamps:** Watch each video, write down start/end times
 3. **Create config:** Use the example as a template
-4. **Run tool:** `python mehndi_playlist.py my_songs.json`
+4. **Run tool:** `python playlist_converter.py my_songs.json`
 5. **Get ZIP:** Share the ZIP file or copy individual MP3s
 6. **Enjoy:** Play at your event in perfect order!
 
 ## 📝 Sample Timeline
 
-For a 2-hour mehndi event:
+For a 2-hour event:
 - 10-15 songs (4-6 minutes each)
 - Mix of energy levels (fast/slow)
 - Start with welcoming songs
