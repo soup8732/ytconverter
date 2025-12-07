@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 Mehndi Playlist Converter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #764ba2;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .info-box {
+            background: #f0f7ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+
+        .info-box p {
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .song-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .song-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .song-number {
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .remove-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .remove-btn:hover {
+            background: #c82333;
+        }
+
+        .time-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .progress-container {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .status-message {
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .download-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 25px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .download-link:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .small-text {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .time-inputs {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 Mehndi Playlist Converter</h1>
+        <p class="subtitle">Create custom trimmed song playlists for your events</p>
+
+        <div class="info-box">
+            <p><strong>📝 How it works:</strong></p>
+            <p>1. Add your YouTube song links below</p>
+            <p>2. Set start and end timestamps (MM:SS format, e.g., 1:30)</p>
+            <p>3. Click "Create Playlist" and download your ZIP file!</p>
+        </div>
+
+        <div class="form-group">
+            <label>Playlist Name</label>
+            <input type="text" id="playlistName" placeholder="e.g., Priya's Mehndi 2024" value="Mehndi Celebration">
+        </div>
+
+        <div id="songsContainer"></div>
+
+        <button class="btn btn-secondary" onclick="addSong()">+ Add Song</button>
+        <button class="btn btn-primary" onclick="createPlaylist()" id="createBtn">🎵 Create Playlist</button>
+
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill">0%</div>
+            </div>
+            <p id="statusText" style="text-align: center; color: #666;">Processing...</p>
+        </div>
+
+        <div class="status-message" id="statusMessage"></div>
+    </div>
+
+    <script>
+        let songCount = 0;
+
+        function addSong() {
+            songCount++;
+            const container = document.getElementById('songsContainer');
+            const songCard = document.createElement('div');
+            songCard.className = 'song-card';
+            songCard.id = `song-${songCount}`;
+
+            songCard.innerHTML = `
+                <div class="song-header">
+                    <div class="song-number">${songCount}</div>
+                    <button class="remove-btn" onclick="removeSong(${songCount})">Remove</button>
+                </div>
+                <div class="form-group">
+                    <label>Song Name</label>
+                    <input type="text" id="name-${songCount}" placeholder="e.g., Mehendi Hai Rachne Wali">
+                </div>
+                <div class="form-group">
+                    <label>YouTube URL</label>
+                    <input type="text" id="url-${songCount}" placeholder="https://www.youtube.com/watch?v=...">
+                </div>
+                <div class="time-inputs">
+                    <div class="form-group">
+                        <label>Start Time (MM:SS)</label>
+                        <input type="text" id="start-${songCount}" placeholder="0:30">
+                        <p class="small-text">e.g., 0:30 or 1:15</p>
+                    </div>
+                    <div class="form-group">
+                        <label>End Time (MM:SS)</label>
+                        <input type="text" id="end-${songCount}" placeholder="3:45">
+                        <p class="small-text">e.g., 3:45 or 5:20</p>
+                    </div>
+                </div>
+            `;
+
+            container.appendChild(songCard);
+            renumberSongs();
+        }
+
+        function removeSong(id) {
+            const song = document.getElementById(`song-${id}`);
+            if (song) {
+                song.remove();
+                renumberSongs();
+            }
+        }
+
+        function renumberSongs() {
+            const songs = document.querySelectorAll('.song-card');
+            songs.forEach((song, index) => {
+                const numberDiv = song.querySelector('.song-number');
+                if (numberDiv) {
+                    numberDiv.textContent = index + 1;
+                }
+            });
+        }
+
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.className = `status-message status-${type}`;
+            statusDiv.innerHTML = message;
+            statusDiv.style.display = 'block';
+        }
+
+        function hideStatus() {
+            document.getElementById('statusMessage').style.display = 'none';
+        }
+
+        async function createPlaylist() {
+            hideStatus();
+
+            const songs = [];
+            const songCards = document.querySelectorAll('.song-card');
+
+            if (songCards.length === 0) {
+                showStatus('Please add at least one song!', 'error');
+                return;
+            }
+
+            // Collect song data
+            for (let i = 0; i < songCards.length; i++) {
+                const card = songCards[i];
+                const id = card.id.split('-')[1];
+
+                const name = document.getElementById(`name-${id}`).value.trim();
+                const url = document.getElementById(`url-${id}`).value.trim();
+                const start = document.getElementById(`start-${id}`).value.trim();
+                const end = document.getElementById(`end-${id}`).value.trim();
+
+                if (!name || !url || !start || !end) {
+                    showStatus(`Song ${i + 1} has missing fields!`, 'error');
+                    return;
+                }
+
+                if (!url.includes('youtube.com') && !url.includes('youtu.be')) {
+                    showStatus(`Song ${i + 1}: Invalid YouTube URL!`, 'error');
+                    return;
+                }
+
+                songs.push({ name, url, start, end });
+            }
+
+            const playlistName = document.getElementById('playlistName').value.trim() || 'Mehndi Playlist';
+
+            // Show progress
+            document.getElementById('progressContainer').style.display = 'block';
+            document.getElementById('createBtn').disabled = true;
+            document.getElementById('statusText').textContent = 'Processing songs...';
+
+            // Simulate progress
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 5;
+                if (progress <= 90) {
+                    document.getElementById('progressFill').style.width = `${progress}%`;
+                    document.getElementById('progressFill').textContent = `${progress}%`;
+                }
+            }, 500);
+
+            try {
+                const response = await fetch('/process', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        songs: songs,
+                        zip_name: `${playlistName.replace(/[^a-zA-Z0-9]/g, '_')}.zip`
+                    })
+                });
+
+                clearInterval(progressInterval);
+                document.getElementById('progressFill').style.width = '100%';
+                document.getElementById('progressFill').textContent = '100%';
+
+                const data = await response.json();
+
+                if (data.success) {
+                    const failedMsg = data.failed > 0
+                        ? `<br><br><strong>Note:</strong> ${data.failed} song(s) failed: ${data.failed_songs.join(', ')}`
+                        : '';
+
+                    showStatus(
+                        `<strong>✅ Success!</strong> Processed ${data.successful}/${data.total} songs!` +
+                        failedMsg +
+                        `<br><br><a href="${data.download_url}" class="download-link">📦 Download ZIP File</a>`,
+                        'success'
+                    );
+                } else {
+                    showStatus(`<strong>Error:</strong> ${data.error}`, 'error');
+                }
+
+            } catch (error) {
+                clearInterval(progressInterval);
+                showStatus(`<strong>Error:</strong> ${error.message}`, 'error');
+            } finally {
+                document.getElementById('createBtn').disabled = false;
+                document.getElementById('progressContainer').style.display = 'none';
+            }
+        }
+
+        // Add 3 songs by default
+        addSong();
+        addSong();
+        addSong();
+    </script>
+</body>
+</html>
