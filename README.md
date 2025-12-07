@@ -1,176 +1,199 @@
-## YTConverter™
-<img width="1020" height="732" alt="1000136389" src="https://github.com/user-attachments/assets/ef9eef49-e366-46cd-937f-834b6d85167b" />
+# 🎵 Custom Playlist Maker
+
+Create custom trimmed song playlists from YouTube videos with an easy-to-use web interface!
+
+Perfect for events, parties, performances, and any occasion where you need specific portions of songs in a specific order.
 
 ---
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Version-4.0.2-blueviolet?style=for-the-badge&logo=github" />
-<!--  <img src="https://img.shields.io/github/forks/kaifcodec/ytconverter?style=for-the-badge&logo=git" />
-  <img src="https://img.shields.io/github/stars/kaifcodec/ytconverter?style=for-the-badge&logo=github" /> -->
-  <img src="https://img.shields.io/github/issues/kaifcodec/ytconverter?style=for-the-badge&logo=github" />
-  <img src="https://img.shields.io/badge/Status-Stable-brightgreen?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Tested%20on-Termux-black?style=for-the-badge&logo=termux" />
-  <img src="https://img.shields.io/badge/Tested%20on-Windows-cyan?style=for-the-badge&logo=Windows" />
-  <img src="https://img.shields.io/badge/Tested%20on-Linux-balck?style=for-the-badge&logo=Linux" />
- <!--- <img src="https://img.shields.io/pypi/dm/ytconverter?label=PyPI%20Downloads&color=blue&logo=pypi" /> --->
-  <img src="https://static.pepy.tech/badge/ytconverter?left_color=black&right_color=brightgreen" />
-</p>
+## ✨ Features
 
----
-> **Preface (optional):** A subtle reflection before diving into the technical details, feel free to skip to main content.
-
-|                                                                 |
-|-----------------------------------------------------------------|
-| **❓ Born from silent hands, shaping what they cannot fully feel.** |
-| **❓ Weighted and left alone, with no hand to guide through the quiet.** |
-| **❓ Moving the world’s sound, while never feeling its pulse.** |
-| <sub>— Author: 401</sub> |
----
-`YTConverter™` is a Python-based project developed by [kaifcodec](https://github.com/kaifcodec) designed to provide a robust tool for converting YouTube videos into various formats. This tool simplifies the process of downloading and converting videos from YouTube.
-
----
-## ✅ Features
-- *Video Downloading* : Fetch videos directly from YouTube.
-- *Audio Downloading*.: Downloads audio of any video with wide range of bitrate selection.
-- *Multiple video download*.: Now you can download multiple videos using the tool, just paste the urls one by one.
-- *Detailed Quality* : It fetches all the available resolutions for the video and let you select as per your need.
-- *Path selections* : It has inbuilt features to detect `Downloads` folder according to what platform user in.
-- *Custom Path* : Also you can enter your suitable path for every video.
-- *Title sanitization* : It has inbuilt `re` module implementation that converts special characters to text, avoiding errors
-- *Format Conversion*.: Convert downloaded videos into different formats such as MP3, MP4, etc.
-- *Metadata Handling* : Extract and manage metadata associated with YouTube videos.
-- *Colored output* : Colorful terminal output that make it easier to select options.
-- *Interactive CLI* : It provides interactive CLI menu that is way easier than using commands everytime.
-- *Auto Update* : You can simply run `ytconverter -U` and it will update yt-dlp and ytconverter to latest version, even it can auto detect whenever there's a new release of `ytconverter`.
-
-- Many more features inside try them all...
-
----
-## 🎵 NEW: Mehndi Playlist Converter
-
-**Create custom trimmed song playlists for events!**
-
-Perfect for weddings, mehndi events, sangeet ceremonies, and dance performances where you need specific portions of songs in a specific order.
-
-### Features:
-- 📥 Download songs from YouTube as high-quality MP3
-- ✂️ Automatically trim to your specified timestamps
-- 📦 Creates a ZIP file with all songs ready to go
-- 🔢 Songs are numbered in the order you want them played
-- 📝 Simple JSON configuration file - just copy/paste your YouTube links
-- ⚡ Efficient - downloads and trims in a single operation
-
-### Quick Start:
-```bash
-# Create example configuration
-python mehndi_playlist.py --create-example my_songs.json
-
-# Edit my_songs.json with your YouTube URLs and timestamps
-# Then run:
-python mehndi_playlist.py my_songs.json
-
-# Get your ZIP file with all trimmed songs ready!
-```
-
-### Example Configuration:
-```json
-{
-  "playlist_name": "Mehndi Celebration 2024",
-  "output_dir": "mehndi_playlist",
-  "create_zip": true,
-  "zip_name": "mehndi_songs.zip",
-  "songs": [
-    {
-      "name": "Mehendi Opening",
-      "url": "https://www.youtube.com/watch?v=VIDEO_ID",
-      "start": "0:30",
-      "end": "3:45",
-      "notes": "Opening song"
-    },
-    {
-      "name": "Dholida Dance",
-      "url": "https://www.youtube.com/watch?v=VIDEO_ID",
-      "start": "0:15",
-      "end": "2:30"
-    }
-  ]
-}
-```
-
-**📖 See [MEHNDI_PLAYLIST_README.md](MEHNDI_PLAYLIST_README.md) for complete documentation, examples, and troubleshooting.**
-
----
-## Screenshots
-<p align= "left">
- <img width="1080" height="495" alt="1000132505" src="https://github.com/user-attachments/assets/4087d8e8-5266-4fb0-8135-a51eda1fdcc1" />
-</p>
-<p align="left">
-<img src= "https://github.com/user-attachments/assets/8e9d00ce-b698-4b1f-8870-badd5d274442" width="600" height="600"/>
-</p>
+- 🎬 **Download from YouTube**: Fetch audio from any YouTube video
+- ✂️ **Smart Trimming**: Automatically trim songs to your specified timestamps
+- 📦 **ZIP Export**: Creates a ready-to-use ZIP file with all your songs
+- 🔢 **Numbered Playlist**: Songs are automatically numbered in your preferred order
+- 🌐 **Web Interface**: Beautiful, modern web UI - no command line needed!
+- ⚡ **Efficient Processing**: Downloads and trims in a single operation
+- 🎯 **Flexible Timing**: 
+  - Leave start time empty to begin from the start
+  - Leave end time empty to go to the end
+  - Specify both for precise trimming
+  - Specify only one for partial trimming
 
 ---
 
-## Requirements
-- Python 3.x
-- Required Python libraries (listed in `requirements.txt`)
-- ffmpeg & yt-dlp binary
+## 🚀 Quick Start
 
-## 🧩 Installation
+### Prerequisites
 
-### 🐧 Linux / Termux / macOS
+- Python 3.9 or higher
+- `ffmpeg` installed on your system
+- `yt-dlp` (will be installed automatically)
+
+### Installation
+
+1. **Clone the repository:**
 ```bash
 git clone https://github.com/kaifcodec/ytconverter.git
-cd ytconverter/standalone/
-./install.sh # Auto-setup ffmpeg + dependencies
-```
-### If install.sh fails, install ffmpeg manually
-```bash
-sudo apt install ffmpeg       # Debian/Ubuntu  
-pkg install ffmpeg            # Termux  
-sudo dnf install ffmpeg       # Fedora  
-sudo pacman -S ffmpeg         # Arch
-```
-### Install ytconverter from PyPI
-```bash
-pip install ytconverter
-ytconverter -S
+cd ytconverter
 ```
 
-## ⚙️ Update
-### Update ytconverter
+2. **Install dependencies:**
 ```bash
-./update.sh # update to new repo, new yt-dlp version 
+pip install -r requirements-web.txt
+```
 
-ytconverter -U # pypi package 
+3. **Install system dependencies:**
+
+**macOS:**
+```bash
+brew install ffmpeg
+```
+
+**Linux (Debian/Ubuntu):**
+```bash
+sudo apt install ffmpeg
+```
+
+**Linux (Fedora):**
+```bash
+sudo dnf install ffmpeg
+```
+
+**Windows:**
+Download ffmpeg from [ffmpeg.org](https://ffmpeg.org/download.html) and add it to your PATH.
+
+4. **Run the application:**
+```bash
+python3 app.py
+```
+
+5. **Open your browser:**
+Navigate to `http://localhost:5000` (or the port shown in the terminal)
+
+---
+
+## 📖 How to Use
+
+1. **Add Songs**: Click "+ Add Song" to add YouTube videos to your playlist
+2. **Enter Details**: For each song, provide:
+   - **Song Name**: A name for the track
+   - **YouTube URL**: The full YouTube video URL
+   - **Start Time** (optional): When to start trimming (format: MM:SS or H:MM:SS)
+   - **End Time** (optional): When to stop trimming (format: MM:SS or H:MM:SS)
+3. **Create Playlist**: Click "🎵 Create Playlist" and wait for processing
+4. **Download**: Once complete, download your ZIP file with all trimmed songs!
+
+### Time Format Examples
+
+- `0:30` - 30 seconds
+- `1:15` - 1 minute 15 seconds
+- `2:45` - 2 minutes 45 seconds
+- `1:05:30` - 1 hour 5 minutes 30 seconds
+
+### Trimming Examples
+
+- **Full song**: Leave both start and end empty
+- **From start to 2:30**: Leave start empty, set end to `2:30`
+- **From 1:00 to end**: Set start to `1:00`, leave end empty
+- **Specific segment**: Set start to `0:30`, end to `3:45`
+
+---
+
+## 🎯 Use Cases
+
+- **Wedding Playlists**: Create custom trimmed songs for ceremonies
+- **Dance Performances**: Extract specific portions for choreography
+- **Event Music**: Build playlists with perfect timing
+- **Podcast Clips**: Extract specific segments from long videos
+- **Music Mixes**: Create custom compilations with precise timing
+
+---
+
+## 🛠️ Technical Details
+
+### Requirements
+
+- Python 3.9+
+- Flask 3.0.0
+- yt-dlp (latest version)
+- ffmpeg
+- gunicorn (for production)
+
+### Project Structure
 
 ```
-## 🪟 Windows
-### Clone the repository
-```bash
-git clone https://github.com/kaifcodec/ytconverter.git
-cd ytconverter/standalone/
-install.bat # Or manually install ffmpeg and add it to PATH
+ytconverter/
+├── app.py                 # Main Flask web application
+├── templates/
+│   └── index.html        # Web interface
+├── requirements-web.txt   # Python dependencies
+└── README.md             # This file
 ```
-### Then run:
+
+### Running in Production
+
+For production deployment, use gunicorn:
+
 ```bash
-python3 ytconverter.py
+gunicorn -w 4 -b 0.0.0.0:5000 app:app
+```
+
+Or set environment variables:
+
+```bash
+export PORT=5000
+gunicorn app:app
 ```
 
 ---
 
-## Contact
-For any questions or feedback, open an issue or write an email on kaifcodec@gmail.com
+## 🔧 Troubleshooting
+
+### "Missing dependencies: yt-dlp, ffmpeg"
+
+Make sure both are installed:
+- **yt-dlp**: `pip install yt-dlp` or `pip install -r requirements-web.txt`
+- **ffmpeg**: Install using your system's package manager (see Installation section)
+
+### "HTTP Error 403: Forbidden"
+
+YouTube may be blocking the request. The app automatically tries multiple methods to bypass restrictions. If it persists:
+- Try a different video
+- Wait a few minutes and retry (rate limiting)
+- Ensure yt-dlp is up to date: `pip install --upgrade yt-dlp`
+
+### Download Fails
+
+- Check that the YouTube URL is valid and accessible
+- Ensure the video is not private or age-restricted
+- Verify your internet connection
+- Check server logs for detailed error messages
 
 ---
 
-### If you found this tool helpful leave a star that will motivate me to maintain this project and add new features 
+## 📝 License
 
-<a href="https://www.star-history.com/#kaifcodec/ytconverter&type=date&legend=top-left">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=kaifcodec/ytconverter&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=kaifcodec/ytconverter&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=kaifcodec/ytconverter&type=date&legend=top-left" />
- </picture>
-</a>
+See [LICENSE](LICENSE) file for details.
 
 ---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+
+## 📧 Contact
+
+For questions, issues, or feedback, please open an issue on GitHub.
+
+---
+
+## ⭐ Star History
+
+If you find this tool helpful, please consider giving it a star!
+
+---
+
+**Made with ❤️ for creating perfect playlists**
