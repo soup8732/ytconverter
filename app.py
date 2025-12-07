@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Music Playlist Converter - Web Application
+Music Playlist Converter - Web App
 Flask web app for creating custom trimmed song playlists
 """
 
